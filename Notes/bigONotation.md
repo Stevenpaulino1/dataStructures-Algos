@@ -132,6 +132,8 @@ Regardless of exact number of operations, it grows proportionally with n, roughl
 - Searching -> O(n)
 - Access -> O(1) --> doesn't matter how long the array is, access goes direct when you provide its position
 
+---
+
 #Algorithms and Problem solving patterns
 ##Objectives
 
@@ -202,6 +204,8 @@ Regardless of exact number of operations, it grows proportionally with n, roughl
 - Can you improve performance?
 - Can you resolve the result differently?
 
+---
+
 # Problem Solving Patterns
 
 - Devise a plan for solving problems
@@ -230,3 +234,83 @@ Regardless of exact number of operations, it grows proportionally with n, roughl
 
 - This pattern involves dividing a data set into smaller chunks and then repeating a process with a subset of data
 - This pattern can tremendously decrease time complexity
+
+---
+
+# Recursion
+
+## What is Recursion?
+
+- A process (a function in out case) that calls itself
+- JSON.parse/stringify, object/dom traversal, examples of Recursion
+- sometimes cleaner alternative to iteration
+
+// Recursive Version
+
+`function countDown(num){ if(num <= 0) { console.log("All done!"); return; } console.log(num); num--; countDown(num); } countDown(3)`
+
+// Iterative Version
+`function countDown(num){ for(var i = num; i > 0; i--){ console.log(i); } console.log("All done!") }`
+
+## The Call Stack
+
+- anytime a function is invoked, it is placed on top of the call Stack
+- In devtools > sources > callstack
+
+## How Recursion functions work
+
+- Invoke the same function with different input until you reach your base case
+- Two essential parts of a Recursive Function
+  - Base Case
+  - Different inputs, calling the function over and over with different data
+
+### Base Case
+
+_- The condition where Recursion ends -_
+
+## Common Pitfalls
+
+### where things go wrong
+
+- No/incorrect base case
+- Forgetting to return, returning wrong thing
+- Stack Overflow
+
+`function factorial(num){ if(num === 1) return 1; return num \* factorial(num); }`
+
+`function factorial(num){ if(num === 1) console.log(1) ; return num \* factorial(num-1); }`
+
+### Helper Method Recursion
+
+`function collectOddValues(arr){
+
+ let result = [];
+
+      function helper(helperInput){
+          if(helperInput.length === 0) {
+              return;
+          }
+
+          if(helperInput[0] % 2 !== 0){
+              result.push(helperInput[0])
+          }
+
+          helper(helperInput.slice(1))
+      }
+
+      helper(arr)
+
+      return result;
+
+}
+
+collectOddValues([1,2,3,4,5,6,7,8,9])`
+
+### Pure Recursion
+
+- Function itself is self contained
+- No external data structure
+- Tips:
+  - For arrays, use methods like slice, spread, concat to make copies
+  - Remember strings are immutable, need to use methods like slice, substring to make copies
+  - Objects use .assign or spread operator.
